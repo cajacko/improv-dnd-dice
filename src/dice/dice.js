@@ -671,7 +671,7 @@
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFShadowMap;
     this.renderer.setClearColor(0xffffff, 1);
-
+    this.renderer.setPixelRatio(window.devicePixelRatio || 1);
     this.reinit(container, dimentions);
 
     this.world.gravity.set(0, 0, -9.8 * 800);
@@ -756,19 +756,19 @@
   };
 
   this.dice_box.prototype.reinit = function(container, dimentions) {
-    this.cw = container.clientWidth / 2;
-    this.ch = container.clientHeight / 2;
-    if (dimentions) {
-      this.w = dimentions.w;
-      this.h = dimentions.h;
-    } else {
-      this.w = this.cw;
-      this.h = this.ch;
-    }
+    var pixelRatio = window.devicePixelRatio || 1;
+
+    this.cw = container.clientWidth * pixelRatio;
+    this.ch = container.clientHeight * pixelRatio;
+
+    // NOTE: Modified to always use window bounds
+    this.w = (this.cw / pixelRatio) / 3;
+    this.h = (this.ch / pixelRatio) / 3;
+
     this.aspect = Math.min(this.cw / this.w, this.ch / this.h);
     that.scale = Math.sqrt(this.w * this.w + this.h * this.h) / 13;
-
-    this.renderer.setSize(this.cw * 2, this.ch * 2);
+    this.renderer.setSize(this.cw / pixelRatio, this.ch / pixelRatio);
+    this.renderer.setPixelRatio(pixelRatio);
 
     this.wh = this.ch / this.aspect / Math.tan((10 * Math.PI) / 180);
     if (this.camera) this.scene.remove(this.camera);

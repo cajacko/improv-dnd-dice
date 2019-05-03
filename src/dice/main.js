@@ -6,8 +6,8 @@ function dice_initialize(container) {
   $t.remove($t.id("loading_text"));
 
   var canvas = $t.id("canvas");
-  canvas.style.width = window.innerWidth - 1 + "px";
-  canvas.style.height = window.innerHeight - 1 + "px";
+  canvas.style.width = "100vw";
+  canvas.style.height = "100vh";
   var label = $t.id("label");
   var set = $t.id("set");
   var selector_div = $t.id("selector_div");
@@ -59,8 +59,8 @@ function dice_initialize(container) {
   box.animate_selector = false;
 
   $t.bind(window, "resize", function() {
-    canvas.style.width = window.innerWidth - 1 + "px";
-    canvas.style.height = window.innerHeight - 1 + "px";
+    canvas.style.width = "100vw";
+    canvas.style.height = "100vh";
     box.reinit(canvas, { w: 500, h: 300 });
   });
 
