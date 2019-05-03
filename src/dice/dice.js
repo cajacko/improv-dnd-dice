@@ -929,8 +929,20 @@
             dice.dice_stopped = undefined;
             var angle = this.vectors[i].angle
             var velocity = this.vectors[i].velocity
-            dice.body.angularVelocity.set(angle.x * 0.8, angle.y * 0.8, angle.z * 0.8);
-            dice.body.velocity.set(velocity.x * 0.4, velocity.y * 0.4, velocity.z * 0.4);
+            var hor_x = dice.body.position.x < 0 ? 1 : -1
+            var hor_y = dice.body.position.y < 0 ? 1 : -1
+
+            dice.body.angularVelocity.set(
+              hor_x * Math.abs(angle.x * 0.8),
+              hor_y * Math.abs(angle.y * 0.8),
+              angle.z * 0.8
+            );
+
+            dice.body.velocity.set(
+              hor_x * Math.abs(velocity.x * 0.4),
+              hor_y * Math.abs(velocity.y * 0.4),
+              velocity.z * 0.4
+            );
           } else if (dice.dice_stopped) {
             if (this.iteration - dice.dice_stopped > 3) {
               dice.body.velocity.set(0, 0, 0);
