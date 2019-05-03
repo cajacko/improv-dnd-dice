@@ -672,7 +672,6 @@
     this.renderer.shadowMap.type = THREE.PCFShadowMap;
     this.renderer.setClearColor(0xffffff, 1);
     this.renderer.setPixelRatio(window.devicePixelRatio || 1);
-    this.reinit(container, dimentions);
 
     this.world.gravity.set(0, 0, -9.8 * 800);
     this.world.broadphase = new CANNON.NaiveBroadphase();
@@ -721,6 +720,7 @@
     barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI / 2);
     barrier.position.set(0, this.h * 0.93, 0);
     this.world.add(barrier);
+    this.barrier_a = barrier
 
     barrier = new CANNON.RigidBody(
       0,
@@ -730,6 +730,7 @@
     barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
     barrier.position.set(0, -this.h * 0.93, 0);
     this.world.add(barrier);
+    this.barrier_b = barrier
 
     barrier = new CANNON.RigidBody(
       0,
@@ -739,6 +740,7 @@
     barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -Math.PI / 2);
     barrier.position.set(this.w * 0.93, 0, 0);
     this.world.add(barrier);
+    this.barrier_c = barrier
 
     barrier = new CANNON.RigidBody(
       0,
@@ -748,11 +750,33 @@
     barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), Math.PI / 2);
     barrier.position.set(-this.w * 0.93, 0, 0);
     this.world.add(barrier);
+    this.barrier_d = barrier
 
+    this.reinit(container, dimentions);
     this.last_time = 0;
     this.running = false;
 
     this.renderer.render(this.scene, this.camera);
+  };
+
+  this.dice_box.prototype.reinit_physics = function() {
+    var barrier
+
+    barrier = this.barrier_a
+    barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI / 2);
+    barrier.position.set(0, this.h * 0.93, 0);
+
+    barrier = this.barrier_b
+    barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2);
+    barrier.position.set(0, -this.h * 0.93, 0);
+
+    barrier = this.barrier_c
+    barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -Math.PI / 2);
+    barrier.position.set(this.w * 0.93, 0, 0);
+
+    barrier = this.barrier_d
+    barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), Math.PI / 2);
+    barrier.position.set(-this.w * 0.93, 0, 0);
   };
 
   this.dice_box.prototype.reinit = function(container, dimentions) {
@@ -803,7 +827,7 @@
     );
     this.desk.receiveShadow = that.use_shadows;
     this.scene.add(this.desk);
-
+    this.reinit_physics();
     this.renderer.render(this.scene, this.camera);
   };
 
