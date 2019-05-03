@@ -1,5 +1,7 @@
 "use strict";
 
+var hardCodeDiceValue = 'd20';
+
 function dice_initialize(container) {
   $t.remove($t.id("loading_text"));
 
@@ -15,7 +17,7 @@ function dice_initialize(container) {
   $t.dice.use_true_random = false;
 
   function on_set_change(ev) {
-    set.style.width = set.value.length + 3 + "ex";
+    set.style.width = hardCodeDiceValue.length + 3 + "ex";
   }
   $t.bind(set, "keyup", on_set_change);
   $t.bind(set, "mousedown", function(ev) {
@@ -33,7 +35,8 @@ function dice_initialize(container) {
 
   $t.bind($t.id("clear"), ["mouseup", "touchend"], function(ev) {
     ev.stopPropagation();
-    set.value = "0";
+    // Hardcoded value so don't reset
+    // set.value = "0";
     on_set_change();
   });
 
@@ -77,7 +80,7 @@ function dice_initialize(container) {
   }
 
   function notation_getter() {
-    return $t.dice.parse_notation(set.value);
+    return $t.dice.parse_notation(hardCodeDiceValue);
   }
 
   function after_roll(notation, result) {
@@ -110,15 +113,17 @@ function dice_initialize(container) {
     }
     var name = box.search_dice_by_mouse(ev);
     if (name != undefined) {
-      var notation = $t.dice.parse_notation(set.value);
+      var notation = $t.dice.parse_notation(hardCodeDiceValue);
       notation.set.push(name);
-      set.value = $t.dice.stringify_notation(notation);
+      // Hardcoded value so don't change
+      // set.value = $t.dice.stringify_notation(notation);
       on_set_change();
     }
   });
 
   if (params.notation) {
-    set.value = params.notation;
+    // Hardcoded value so don't change
+    // set.value = params.notation;
   }
   if (params.roll) {
     $t.raise_event($t.id("throw"), "mouseup");
