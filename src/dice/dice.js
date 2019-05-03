@@ -1205,6 +1205,11 @@
       ev.stopPropagation();
       box.start_throw(notation_getter, before_roll, after_roll);
     });
+
+    document.onkeydown = function(ev) {
+      ev.stopPropagation();
+      box.start_throw(notation_getter, before_roll, after_roll);
+    };
   };
 
   this.dice_box.prototype.start_throw = function(
