@@ -920,7 +920,14 @@
           Math.abs(v.y) < e &&
           Math.abs(v.z) < e
         ) {
-          if (dice.dice_stopped) {
+          var dice_value = get_dice_value(dice)
+          if (dice_value >= 9 && dice_value <= 13) {
+            dice.dice_stopped = undefined;
+            var angle = this.vectors[i].angle
+            var velocity = this.vectors[i].velocity
+            dice.body.angularVelocity.set(angle.x * 0.8, angle.y * 0.8, angle.z * 0.8);
+            dice.body.velocity.set(velocity.x * 0.4, velocity.y * 0.4, velocity.z * 0.4);
+          } else if (dice.dice_stopped) {
             if (this.iteration - dice.dice_stopped > 3) {
               dice.dice_stopped = true;
               continue;
@@ -1035,6 +1042,7 @@
   this.dice_box.prototype.prepare_dices_for_roll = function(vectors) {
     this.clear();
     this.iteration = 0;
+    this.vectors = vectors
     for (var i in vectors) {
       this.create_dice(
         vectors[i].set,
