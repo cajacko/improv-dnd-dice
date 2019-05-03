@@ -228,6 +228,7 @@
         context.fillText("  .", canvas.width / 2, canvas.height / 2);
       }
       var texture = new THREE.Texture(canvas);
+      texture.minFilter = THREE.LinearMipMapLinearFilter;
       texture.needsUpdate = true;
       return texture;
     }
