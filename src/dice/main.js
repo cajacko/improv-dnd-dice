@@ -3,8 +3,6 @@
 var hardCodeDiceValue = 'd20';
 
 function dice_initialize(container) {
-  $t.remove($t.id("loading_text"));
-
   var canvas = $t.id("canvas");
   canvas.style.width = "100vw";
   canvas.style.height = "100vh";

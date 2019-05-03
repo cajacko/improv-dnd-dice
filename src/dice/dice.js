@@ -932,7 +932,6 @@
             dice.body.velocity.set(velocity.x * 0.4, velocity.y * 0.4, velocity.z * 0.4);
           } else if (dice.dice_stopped) {
             if (this.iteration - dice.dice_stopped > 3) {
-              dice.body.angularVelocity.set(0, 0, 0);
               dice.body.velocity.set(0, 0, 0);
               dice.dice_stopped = true;
               continue;
