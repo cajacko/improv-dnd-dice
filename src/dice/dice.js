@@ -664,14 +664,17 @@
     this.scene = new THREE.Scene();
     this.world = new CANNON.World();
 
+    var pixelRatio = window.devicePixelRatio || 1
+    var antialias = pixelRatio < 1.5
+
     this.renderer = window.WebGLRenderingContext
-      ? new THREE.WebGLRenderer({ antialias: true })
-      : new THREE.CanvasRenderer({ antialias: true });
+      ? new THREE.WebGLRenderer({ antialias: antialias })
+      : new THREE.CanvasRenderer({ antialias: antialias });
     container.appendChild(this.renderer.domElement);
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFShadowMap;
     this.renderer.setClearColor(0xffffff, 1);
-    this.renderer.setPixelRatio(window.devicePixelRatio || 1);
+    this.renderer.setPixelRatio(pixelRatio);
 
     this.world.gravity.set(0, 0, -9.8 * 800);
     this.world.broadphase = new CANNON.NaiveBroadphase();
@@ -929,6 +932,8 @@
             dice.body.velocity.set(velocity.x * 0.4, velocity.y * 0.4, velocity.z * 0.4);
           } else if (dice.dice_stopped) {
             if (this.iteration - dice.dice_stopped > 3) {
+              dice.body.angularVelocity.set(0, 0, 0);
+              dice.body.velocity.set(0, 0, 0);
               dice.dice_stopped = true;
               continue;
             }
