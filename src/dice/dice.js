@@ -507,26 +507,28 @@
     d100: 9
   };
 
-  this.scale = 50;
+  // When we use this.scale it get's overriden somewhere, so let's just define it here
+  var actualScale = 100;
+  this.scale = actualScale;
 
   this.create_d4 = function() {
     if (!this.d4_geometry)
-      this.d4_geometry = this.create_d4_geometry(this.scale * 1.2);
+      this.d4_geometry = this.create_d4_geometry(actualScale * 1.2);
     if (!this.d4_material)
       this.d4_material = new THREE.MeshFaceMaterial(
-        this.create_d4_materials(this.scale / 2, this.scale * 2, d4_labels[0])
+        this.create_d4_materials(actualScale / 2, actualScale * 2, d4_labels[0])
       );
     return new THREE.Mesh(this.d4_geometry, this.d4_material);
   };
 
   this.create_d6 = function() {
     if (!this.d6_geometry)
-      this.d6_geometry = this.create_d6_geometry(this.scale * 0.9);
+      this.d6_geometry = this.create_d6_geometry(actualScale * 0.9);
     if (!this.dice_material)
       this.dice_material = new THREE.MeshFaceMaterial(
         this.create_dice_materials(
           this.standart_d20_dice_face_labels,
-          this.scale / 2,
+          actualScale / 2,
           1.0
         )
       );
@@ -535,12 +537,12 @@
 
   this.create_d8 = function() {
     if (!this.d8_geometry)
-      this.d8_geometry = this.create_d8_geometry(this.scale);
+      this.d8_geometry = this.create_d8_geometry(actualScale);
     if (!this.dice_material)
       this.dice_material = new THREE.MeshFaceMaterial(
         this.create_dice_materials(
           this.standart_d20_dice_face_labels,
-          this.scale / 2,
+          actualScale / 2,
           1.2
         )
       );
@@ -549,12 +551,12 @@
 
   this.create_d10 = function() {
     if (!this.d10_geometry)
-      this.d10_geometry = this.create_d10_geometry(this.scale * 0.9);
+      this.d10_geometry = this.create_d10_geometry(actualScale * 0.9);
     if (!this.dice_material)
       this.dice_material = new THREE.MeshFaceMaterial(
         this.create_dice_materials(
           this.standart_d20_dice_face_labels,
-          this.scale / 2,
+          actualScale / 2,
           1.0
         )
       );
@@ -563,12 +565,12 @@
 
   this.create_d12 = function() {
     if (!this.d12_geometry)
-      this.d12_geometry = this.create_d12_geometry(this.scale * 0.9);
+      this.d12_geometry = this.create_d12_geometry(actualScale * 0.9);
     if (!this.dice_material)
       this.dice_material = new THREE.MeshFaceMaterial(
         this.create_dice_materials(
           this.standart_d20_dice_face_labels,
-          this.scale / 2,
+          actualScale / 2,
           1.0
         )
       );
@@ -576,13 +578,14 @@
   };
 
   this.create_d20 = function() {
+    console.log('create_d20', actualScale)
     if (!this.d20_geometry)
-      this.d20_geometry = this.create_d20_geometry(this.scale);
+      this.d20_geometry = this.create_d20_geometry(actualScale);
     if (!this.dice_material)
       this.dice_material = new THREE.MeshFaceMaterial(
         this.create_dice_materials(
           this.standart_d20_dice_face_labels,
-          this.scale / 2,
+          actualScale / 2,
           1.0
         )
       );
@@ -591,12 +594,12 @@
 
   this.create_d100 = function() {
     if (!this.d10_geometry)
-      this.d10_geometry = this.create_d10_geometry(this.scale * 0.9);
+      this.d10_geometry = this.create_d10_geometry(actualScale * 0.9);
     if (!this.d100_material)
       this.d100_material = new THREE.MeshFaceMaterial(
         this.create_dice_materials(
           this.standart_d100_dice_face_labels,
-          this.scale / 2,
+          actualScale / 2,
           1.5
         )
       );
