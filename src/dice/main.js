@@ -128,9 +128,7 @@ function dice_initialize(container) {
     // Hardcoded value so don't change
     // set.value = params.notation;
   }
-  if (params.roll) {
-    $t.raise_event($t.id("throw"), "mouseup");
-  } else {
-    show_selector();
-  }
+
+  // Immediately roll and show the dice
+  $t.raise_event($t.id("throw"), "mouseup");
 }
