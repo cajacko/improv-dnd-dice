@@ -107,7 +107,10 @@ function dice_initialize(container) {
   $t.bind(container, ["mouseup", "touchend"], function(ev) {
     ev.stopPropagation();
     if (selector_div.style.display == "none") {
-      if (!box.rolling) show_selector();
+      if (!box.rolling) {
+        // We get here when trying to continue and show all the dice again, stop that from happening
+        // show_selector();
+      }
       box.rolling = false;
       return;
     }
